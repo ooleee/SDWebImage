@@ -1,3 +1,160 @@
+## [5.6.0 - URLSession Metrics && Vector Format, on Mar 5th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.6.0)
+See [all tickets marked for the 5.6.0 release](https://github.com/SDWebImage/SDWebImage/milestone/63)
+
+### Features
+
+#### URLSession Metrics
+- Added the URLSessionTaskMetrics support for downloader && operation, which can be used for network metrics #2937
+- Typically you use custom operation class to collect all metrics in your app. You can also collect metrics for single url request level. Check the #2937 example code to grab the download token and check metrics.
+
+#### Vector Image
+- Feature - better support for vector format detection, now PDF rasterized bitmap is built-in #2936
+- Pass `.thumbnailPixelSize` to control the PDF bitmap size. If you want vector PDF rendering, you still need to use [SDWebImagePDFCoder](https://github.com/SDWebImage/SDWebImagePDFCoder).
+- Vector image like SVG (via [SDWebImageSVGCoder](https://github.com/SDWebImage/SDWebImageSVGCoder)) and PDF (via [SDWebImagePDFCoder](https://github.com/SDWebImage/SDWebImagePDFCoder)), or system symbol images, can be detected by new API `sd_isVector`.
+- Vector image does not pass to transformer by default, because they support dynamic size changing. Pass `.transformVectorImage` option to allow transformation.
+
+#### Cache
+- Add a better check to handle the cases when call `storeImage` without imageData #2953
+- Which means, if you store image to disk without data, we will use extra information via `sd_imageFormat` or custom image class, to choose the the image format (including GIF and PDF) for encoding. Previously we only encode it into PNG or JPEG.
+
+#### Context Option
+- Feature add context option for cache, loader and coder, deprecated SDWebImageContextCustomManager #2955
+- This makes it easy to use custom loader, cache, and decoder, without need to create a dummy SDWebImageManager instance.
+
+### Fixes
+- Fix the rare case when call `SDWebImageDownloaderOperation.cancel`, the completion block may callback twice #2954
+
+### Warnings
+- Suppress the deprecation warning when min deployment target version set to iOS 13+ or macCatalyst
+- Complete all the SDWebImage error code with the localized description, make it easy for debugging #2948
+
+## [5.5.2 - 5.5 Patch, on Jan 26th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.5.2)
+See [all tickets marked for the 5.5.2 release](https://github.com/SDWebImage/SDWebImage/milestone/62)
+
+### Fixes
+- Fix the issue that `maxBufferSize` property does not correctly works for `SDAnimatedImageView` #2934
+
+## [5.5.1 - 5.5 Patch, on Jan 18th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.5.1)
+See [all tickets marked for the 5.5.1 release](https://github.com/SDWebImage/SDWebImage/milestone/59)
+
+### Fixes
+- Fix the SDAnimatedImageView's progressive animation bug, which reset the frame index to 0 each time new frames available #2931
+
+## [5.5.0 - Thumbnail Decoding && Core Image, on Jan 16th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.5.0)
+See [all tickets marked for the 5.5.0 release](https://github.com/SDWebImage/SDWebImage/milestone/55)
+
+### Features
+
+#### Thumbnail Decoding
+- Supports to load the large web image with thumbnail, control the limit size and aspect ratio #2922 #2810
+- Better than resize transformer, which does not allocate full pixel RAM and faster on CPU. If you've already use transformer to generate thumbnail, you'd better have a try
+- Works for both animated images and progressive images, each frame using the thumbnail decoding
+- Applies for Vector Format like SVG/PDF as well, see more in [Coder Plugin List](https://github.com/SDWebImage/SDWebImage/wiki/Coder-Plugin-List)
+
+#### Core Image
+- Support all transformer method on CIImage based UIImage/NSImage #2918
+- For CIImage based UIImage/NSImage, using the CIFilter to take shortcut, which is faster and lazy (rasterize on demand)
+
+#### Cache
+- Support to use the creation date and the change date to determine the disk cache expire date compare #2915
+
+### Performances
+- Using UIGraphicsImageRenderer on iOS 10+, save memory when image bitmap is RGB(-25%) or Grayscale(-75%) #2907
+- Provide the polyfill APIs for firmware iOS 10- and macOS. If you already use `SDGraphicsBeginImageContext` for drawing, you'd better replace that instead.
+
+### Fixes
+- Fix Gaussian Blur's bug which take half of the blur radius compared to the standard, should match Core Image's behavior #2927
+
+## [5.4 Patch, on Jan 18th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.4.3)
+See [all tickets marked for the 5.4.3 release](https://github.com/SDWebImage/SDWebImage/milestone/61)
+
+### Fixes
+- Fix the SDAnimatedImageView's progressive animation bug, which reset the frame index to 0 each time new frames available #2931
+
+## [5.4.2 - 5.4 Patch, on Jan 7th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.4.2)
+See [all tickets marked for the 5.4.2 release](https://github.com/SDWebImage/SDWebImage/milestone/58)
+
+### Fixes
+- SDAnimatedImage now only keep the animated coder when frame count >=1 , else we will behave like UIImage to save RAM usage #2924
+
+## [5.4.1 - 5.4 Patch, on Dec 27th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.4.1)
+See [all tickets marked for the 5.4.1 release](https://github.com/SDWebImage/SDWebImage/milestone/56)
+
+### Fixes
+- Fix the issue that "There may be no complete callback when download the picture of the local path" #2917
+
+## [5.4.0 Extended Cache Metadata, on Dec 6th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.4.0)
+See [all tickets marked for the 5.4.0 release](https://github.com/SDWebImage/SDWebImage/milestone/51)
+
+### Features
+
+#### Cache
+- Allows advanced user to read/write extended metadata associated with image data from disk cache #2898
+- This metadata will be processed at the same time when store or query the image. The metadata should conforms to `NSCoding` for archive and unarchive.
+
+#### Manager
+- Add `SDWebImageWaitStoreCache`, which wait for all the async disk cache written finished and then callback, useful for advanced user who want to touch the cache right in completion block #2900
+
+### Fixes
+- Using one global function to ensure we always sync all the UIImage category associated object status correctly inside our framework #2902
+- Fix the thread safe issue with Downloader and DownloaderOperation during cancel #2903
+
+## [5.3 Patch, on Jan 18th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.3.4)
+See [all tickets marked for the 5.3.4 release](https://github.com/SDWebImage/SDWebImage/milestone/60)
+
+### Fixes
+- Fix the SDAnimatedImageView's progressive animation bug, which reset the frame index to 0 each time new frames available #2931
+
+## [5.3 Patch, on Dec 3rd, 2019](https://github.com/rs/SDWebImage/releases/tag/5.3.3)
+See [all tickets marked for the 5.3.3 release](https://github.com/SDWebImage/SDWebImage/milestone/54)
+
+### Fixes
+- Fix the crash when using NSCache delegate with SDMemoryCache default implementation on dealloc #2899
+
+## [5.3 Patch, on Nov 22nd, 2019](https://github.com/rs/SDWebImage/releases/tag/5.3.2)
+See [all tickets marked for the 5.3.2 release](https://github.com/SDWebImage/SDWebImage/milestone/53)
+
+### Fixes
+- Fix animated image playback bugs that cause rendering frame is previous frame index #2895. Thanks @ZXIOU 
+
+## [5.3 Patch, on Nov 9th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.3.1)
+See [all tickets marked for the 5.3.1 release](https://github.com/SDWebImage/SDWebImage/milestone/52)
+
+### Fixes
+- Fix the case even when Animated Image View is not visible, user call startAnimating can still do animation #2888
+
+## [5.3.0 Animated Player & Data Decryptor, on Nov 6th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.3.0)
+See [all tickets marked for the 5.3.0 release](https://github.com/SDWebImage/SDWebImage/milestone/45)
+
+### Features
+
+#### Animated Image
+- Refactoring the SDAnimatedImageView with player backend called `SDAnimatedImagePlayer`, make it easier for common usage. #2882
+- The player use protocol based implementation, which can be used for many scenarios, like WatchKit, CALayer, or even SwiftUI. See [wiki](https://github.com/SDWebImage/SDWebImage/wiki/Advanced-Usage#animated-player-530)
+- Supports the control of AnimatedImage View/Player 's play rate #2885
+- Supports the runloop mode control for macOS. Which can be useful when user want to pause animation when drag the mouse, or presenting modal window #2886
+
+#### Data Decryptor
+- Decrypt the encrypted image data after download and just before decoding. #2866
+- Provide a built-in convenience for Base64-encoded image data. See [wiki](https://github.com/SDWebImage/SDWebImage/wiki/Advanced-Usage#data-decryptor-530)
+
+#### Response Modifier
+- Modify the HTTP response after download, paired with request modifier #2866
+- Can be used for custom HTTP header check, mock data, etc. See [wiki](https://github.com/SDWebImage/SDWebImage/wiki/How-to-use#use-response-modifier-530)
+
+## [5.2 Patch, on Oct 27th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.2.5)
+See [all tickets marked for the 5.2.5 release](https://github.com/SDWebImage/SDWebImage/milestone/50)
+
+### Fixes
+- Fix macOS SDWebImageIndicator center layout issue when indicator was initialized with 0 frame #2875
+
+## [5.2 Patch, on Oct 27th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.2.4)
+See [all tickets marked for the 5.2.4 release](https://github.com/SDWebImage/SDWebImage/milestone/49)
+
+### Fixes
+- Fix the regression issue that SDAnimatedImageView on macOS will change the wrong duration speed when pause and resume again #2873
+- Fix SDAnimatedImage on macOS use extra animates property check, which is not intuitive and cause extra setup before usage #2874
+
 ## [5.2 Patch, on Oct 9th, 2019](https://github.com/rs/SDWebImage/releases/tag/5.2.3)
 See [all tickets marked for the 5.2.3 release](https://github.com/SDWebImage/SDWebImage/milestone/48)
 
