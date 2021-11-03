@@ -14,6 +14,7 @@ def all_test_pods
   pod 'SDWebImage/MapKit', :path => './'
   pod 'Expecta'
   pod 'KVOController'
+  pod 'SDWebImageWebPCoder', :git => 'https://github.com/SDWebImage/SDWebImageWebPCoder.git', :branch => 'master'
 end
 
 example_project_path = 'Examples/SDWebImage Demo'
@@ -23,19 +24,19 @@ workspace 'SDWebImage.xcworkspace'
 # Example Project
 target 'SDWebImage iOS Demo' do
   project example_project_path
-  platform :ios, '8.0'
+  platform :ios, '9.0'
   all_example_pods
 end
 
 target 'SDWebImage OSX Demo' do
   project example_project_path
-  platform :osx, '10.10'
+  platform :osx, '10.11'
   all_example_pods
 end
 
 target 'SDWebImage TV Demo' do
   project example_project_path
-  platform :tvos, '9.2'
+  platform :tvos, '9.0'
   all_example_pods
 end
 
@@ -48,18 +49,18 @@ end
 # Test Project
 target 'Tests iOS' do
   project test_project_path
-  platform :ios, '8.0'
+  platform :ios, '9.0'
   all_test_pods
 end
 
 target 'Tests Mac' do
   project test_project_path
-  platform :osx, '10.10'
+  platform :osx, '10.11'
   all_test_pods
 end
 
 target 'Tests TV' do
   project test_project_path
-  platform :tvos, '9.2'
+  platform :tvos, '9.0'
   all_test_pods
 end

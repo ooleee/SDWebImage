@@ -12,7 +12,7 @@
 #import "SDDisplayLink.h"
 #import "SDInternalMacros.h"
 #import "SDFileAttributeHelper.h"
-#import "UIColor+HexString.h"
+#import "UIColor+SDHexString.h"
 
 @interface SDUtilsTests : SDTestCase
 
@@ -72,7 +72,7 @@
 
 - (void)displayLinkDidRefresh:(SDDisplayLink *)displayLink {
     NSTimeInterval duration = displayLink.duration; // Running value
-    expect(duration).beGreaterThan(0.01);
+    expect(duration).beGreaterThan(0.001); /// 60Hz ~ 120Hz
     expect(duration).beLessThan(0.02);
 }
 

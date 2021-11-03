@@ -1,3 +1,296 @@
+## [5.12.1 - 5.12 Patch, on Oct 15th, 2021](https://github.com/rs/SDWebImage/releases/tag/5.12.1)
+See [all tickets marked for the 5.12.1 release](https://github.com/SDWebImage/SDWebImage/milestone/90)
+
+### Fixes
+- Fix ProMotion display issues #3280
+- Add tvos check when use targetTimestamp in displaylink #3286
+- Revert "Fix image source release in iOS 15" in 5.12.0 #3281
+
+### Warnings
+- Since UTI is an standard, we can use it directly to avoid warning on iOS 15 
+
+### Tests
+- Fix test error #3283
+- Port travis configuration to github actions #3285
+
+## [5.12.0, on Sep 30th, 2021](https://github.com/rs/SDWebImage/releases/tag/5.12.0)
+See [all tickets marked for the 5.12.0 release](https://github.com/SDWebImage/SDWebImage/milestone/89)
+
+### Features
+
+#### Cache
+- Do a extra memory cache sync when weak cache feature enabled && Change the default value for shouldUseWeakMemoryCache to NO #3239 
+- Fix imageFromCacheForKey with options and context behavior, matching the async version one. #3238 
+
+#### Downloader
+- Feature: allow user to custom acceptable status code and content type #3227
+- Change the default delegate method to allows optional cert in SSL verify, matches URLSession's behavior #3241 
+
+#### Animated Image
+- Added sd_imageFrameCount convenient API for UIAinmatedImage/NSBitmapImageRep #3243 
+- Make SDAnimatedImageRep confirms to correct copy semantic #3258
+
+### Fixes
+- Fix image source release in iOS 15 #3276 
+- Fix wrong memory cost in _UIAnimatedImage #3237 
+- Fix pixel ratio thumbnail calculation #3277
+- Fix the warning, enable APPLICATION_EXTENSION_API_ONLY for all framework target #3236 
+
+## [5.11.1 - 5.11 Patch, on Apr 23rd, 2021](https://github.com/rs/SDWebImage/releases/tag/5.11.1)
+See [all tickets marked for the 5.11.1 release](https://github.com/SDWebImage/SDWebImage/milestone/88)
+
+### Changes
+- Change the .originalStoreCaheType and .originalQueryCacheType into .disk, Now we will store the full image data into disk and re-query the full image data by default #3219
+- Change the willTerminate auto clean cache logic into sync version #3210
+
+### Fixes
+- Fix the bug that when querying original cache miss, the download process will be skipped. This is not designed behavior #3221
+- Ensure the invalid URLSeesion will receive the cancel callback and does not trigger the any exception from framework #3205
+
+### Documentation
+- Fix spelling error in SDWebImageDownloaderOperation #3220
+
+## [5.11.0 - Performance, on Apr 1st, 2021](https://github.com/rs/SDWebImage/releases/tag/5.11.0)
+See [all tickets marked for the 5.11.0 release](https://github.com/SDWebImage/SDWebImage/milestone/84)
+
+### Features
+#### Transformer
+- Added the new context option SDWebImageContextOriginalImageCache, which control the cache instance used for original full size image query/write when using transformer #3184 
+
+### Performance
+- Increase progressive decoding performance by using the progressive decoder's result instead of re-decoding the full image data #3182 
+- Avoid the strong retain during download decoding, this can make the download operation fast to destroy and reduce memory peak, especially in progressive decoding #3183 
+
+### Fixes
+- Don't encode/decode image when app will terminated #3149 
+
+
+## [5.10.4 - 5.10 Patch, on Feb 2nd, 2021](https://github.com/rs/SDWebImage/releases/tag/5.10.4)
+See [all tickets marked for the 5.10.4 release](https://github.com/SDWebImage/SDWebImage/milestone/87)
+
+### Performance
+- Don't unnecessarily copy image data in the Download Operation #3167
+
+## [5.10.3 - 5.10 Patch, on Jan 24th, 2021](https://github.com/rs/SDWebImage/releases/tag/5.10.3)
+See [all tickets marked for the 5.10.3 release](https://github.com/SDWebImage/SDWebImage/milestone/86)
+
+### Fixes
+- Fixed the store cache type was specified to `SDImageCacheTypeDisk ` that pictures shouldn't cache to memory. #3157
+
+## [5.10.2 - 5.10 Patch, on Dec 29th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.10.2)
+See [all tickets marked for the 5.10.2 release](https://github.com/SDWebImage/SDWebImage/milestone/85)
+
+### Fixes
+- Fix the case that we setFinished=YES before NSOperation started. This may cause exception from Foundation #3146
+
+## [5.10.1 - 5.10 Patch, on Dec 25th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.10.1)
+See [all tickets marked for the 5.10.1 release](https://github.com/SDWebImage/SDWebImage/milestone/83)
+
+### Fixes
+- Fix the race condition when user cancel the network loading will not trigger the completion block #3142
+- Fix deprecation warnings for OSSpinLock #3137
+
+## [5.10.0 - iOS 9+/Xcode 11+, on Nov 22nd, 2020](https://github.com/rs/SDWebImage/releases/tag/5.10.0)
+See [all tickets marked for the 5.10.0 release](https://github.com/SDWebImage/SDWebImage/milestone/82)
+
+### Project
+- Bumped the min deployment target version to iOS 9, macOS 10.11. Bumped the min Xcode version to Xcode 11 #3130 
+- This effect the downstream dependencies like [SDWebImageWebPCoder](https://github.com/SDWebImage/SDWebImageWebPCoder), you may update them to the latest version at the same time.
+
+### Features
+#### Animated Image
+- Add animation playback mode for SDAnimatedImageView/Player, including reverse, bounce and reversed bounce #3115 
+
+#### Custom Loader
+- Added the options and context arg for Image Loader custom protocol, this can be used for advanced user to grab and check for context for current loading URL to process the logic #3129 
+
+#### Performance
+- Replace all current dispatch_semaphore usage into the os_unfair_lock, use OSSpinLock for lower firmware #3128 
+
+## [5.9.5 - 5.9 Patch, on Nov 13th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.9.5)
+See [all tickets marked for the 5.9.5 release](https://github.com/SDWebImage/SDWebImage/milestone/81)
+
+### Fixes
+- Add animationImages support when using SDAnimatedImageView #3113
+
+## [5.9.4 - 5.9 Patch, on Oct 13th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.9.4)
+See [all tickets marked for the 5.9.4 release](https://github.com/SDWebImage/SDWebImage/milestone/80)
+
+### Fixes
+- Fix race condition when using transitions that are canceled and then switched to a new transition or load operation #3108 #3107
+- Fixed the store cache type was specified to `SDImageCacheTypeDisk ` that no pictures were obtained when the disk had pictures #3110
+
+## [5.9.3 - 5.9 Patch, on Oct 13th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.9.3)
+See [all tickets marked for the 5.9.3 release](https://github.com/SDWebImage/SDWebImage/milestone/79)
+
+### Fixes
+- Fix coder priority inverse in SDAnimatedImage #3101
+- Fix that SDImageCache will automatically store the disk image into memory cache even if store cache type is disk #3104
+
+## [5.9.2 - 5.9 Patch, on Sep 29th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.9.2)
+See [all tickets marked for the 5.9.2 release](https://github.com/SDWebImage/SDWebImage/milestone/78)
+
+### Fixes
+- Fix the issue that SDAnimatedImageView will trigger an empty callback when animation stopped. This will cause some bad effect such as rendering a empty image or placeholder image (especially on iOS 14) #3092
+- Fix: `duration` is not used in SDWebImageTransition convenience initializers. #3094
+
+## [5.9.1 - 5.9 Patch, on Sep 11th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.9.1)
+See [all tickets marked for the 5.9.1 release](https://github.com/SDWebImage/SDWebImage/milestone/77)
+
+### Fixes
+- Fix the issue of SDAnimatedImage initWithContentsOfFile where the path name less than 3 characters #3081
+
+## [5.9.0 - iOS 14 WebP, on Aug 27th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.9.0)
+See [all tickets marked for the 5.9.0 release](https://github.com/SDWebImage/SDWebImage/milestone/72)
+
+### Features
+
+#### Image
+- Supports built-in WebP/AWebP codec from ImageIO for iOS 14/tvOS 14/macOS 11/watchOS 7 #3048
+- To use, add `SDImageAWebPCoder` to your coders manager. Note built-in WebP currently supports decoding only, for encoding, you still need `SDImageWebPCoder`
+- Add the support to pass small bytes to `decodedAndScaledDownLargeImage`, which always scale down (at least 1x1 pixel) but not return the original size #3067
+
+#### Cache
+- Supports the user to customize the default disk cache directory, which can be used to share cache for App && App Extension #3066
+
+#### View Category
+- Adjust the current behavior to use transition. Now it automatically do transition when manager callback asynchronously (if user see waiting, then do transition) #3074
+
+### Fixes
+- Fix the bug when the thumbnail pixel size is larger than the pixel size, and the image has EXIF orientation, the final UIImage will use wrong image orientation #3070
+- Fix the image format detection for smaller SVG which less than 100 Bytes #3072
+
+## [5.8.4 - 5.8 Patch, on July 16th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.8.4)
+See [all tickets marked for the 5.8.4 release](https://github.com/SDWebImage/SDWebImage/milestone/76)
+
+### Fixes
+- Try to copy the local NSMutableDictionary before calling CGImageSourceCreateImageAtIndex, try to solve the rare crash inside ImageIO call stack #3052
+- Fix race condition when use transition but canceling an operation #3053
+
+## [5.8.3 - 5.8 Patch, on July 2nd, 2020](https://github.com/rs/SDWebImage/releases/tag/5.8.3)
+See [all tickets marked for the 5.8.3 release](https://github.com/SDWebImage/SDWebImage/milestone/75)
+
+### Changes
+- Add the support for that UIImage+MultiFormat methods on SDAnimatedImage, which supports encoding the animation like GIF/APNG/WebP with lower compression quality #3047
+
+### Fixes
+- Fix the issue of iOS 14 vector image rendering on SDAnimatedImageView #3046
+
+## [5.8.2 - 5.8 Patch, on June 23rd, 2020](https://github.com/rs/SDWebImage/releases/tag/5.8.2)
+See [all tickets marked for the 5.8.2 release](https://github.com/SDWebImage/SDWebImage/milestone/74)
+
+### Fixes
+- Fix the issue that SDAnimatedImageView can not render static image on iOS 14. #3043
+- Fix the `maxPixelSize` logic issue will cause a upscale in SDImageIOAnimatedCoder #3039
+
+## [5.8.1 - 5.8 Patch, on June 12th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.8.1)
+See [all tickets marked for the 5.8.1 release](https://github.com/SDWebImage/SDWebImage/milestone/73)
+
+### Features
+- Added the convenient transition with duration APIs #3027
+
+### Fixes
+- Fix the issue that the NSURLRequest method should not be nil, which may cause Crash #3037
+- Fix the issue when `maxPixelSize` is larger than image size will cause a upscale in ImageIO #3015
+- Change to use `kCGImageSourceCreateThumbnailFromImageAlways` to solve the issue when HEIC/JPEG contains an embed thumbnail but its size is much smaller than provided `maxPixelSize` #3038
+- SDAnimatedImagePlayer seek returning nil image fix #3030
+- Fixing Typos throughout project #3026
+
+## [5.8.0 - Transform original cache and more, on May 11th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.8.0)
+See [all tickets marked for the 5.8.0 release](https://github.com/SDWebImage/SDWebImage/milestone/69)
+
+### Features
+
+#### Transformer
+- Add query original cache for transformed image without downloading #2992
+- This can be used to query the original image from cache then do transforming when transformed key cache miss, without any downloading happened.
+
+#### Animated Image
+- Added autoplay control property to AnimatedImageView (autoPlayAnimatedImage) #3003
+
+#### Manager
+- Mark the black list formal error code, support remove the failed URL from black list #2997
+- Polish the error description between image decode failed and image size is 0 #3005
+
+#### Downloader
+- Add the convenient request/response modifier, which provide HTTP header directly #2990
+
+#### View Category
+- Added the convenient transition options for macOS user. Deprecate the old timingFunction, which can use System API to achieve #2985
+- Feature pass the set operation key into context option from upstream. Fix the potential retain cycle if user use custom manager #2986
+
+#### Coder
+- Feature: Encoding options supports embed thumbnail (works for JPEG/HEIF/AVIF) #2988
+
+#### Project
+- Support the SwiftPM Objective-C user to use `#improt <SDWebImage/SDWebImage.h>` #2987
+
+## [5.7.4 - 5.7 Patch, on May 6th, 2020](https://github.com/SDWebImage/SDWebImage/releases/tag/5.7.4)
+See [all tickets marked for the 5.7.4 release](https://github.com/SDWebImage/SDWebImage/milestone/71)
+
+### Fixes
+- Fix the issue that NSOperation conforms to `SDWebImageOperation` check failed. Fix cancelling prefetcher hung up #2999 #2998
+
+## [5.7.3 - 5.7 Patch, on Apr 21st, 2020](https://github.com/SDWebImage/SDWebImage/releases/tag/5.7.3)
+See [all tickets marked for the 5.7.3 release](https://github.com/SDWebImage/SDWebImage/milestone/70)
+
+### Fixes
+- Fix the encoding options which does not passthrough the correct value to ImageIO #2989
+
+## [5.7.2 - 5.7 Patch, on Apr 11th, 2020](https://github.com/SDWebImage/SDWebImage/releases/tag/5.7.2)
+See [all tickets marked for the 5.7.2 release](https://github.com/SDWebImage/SDWebImage/milestone/68)
+
+### Fixes
+- SDAnimatedImageView animation rendering should not use CGContext force decoding, use `kCGImageSourceShouldCacheImmediately` instead which can avoid OOM for large number of GIFs #2977
+- Fix that when first play animated image and use maxBufferSize to 0, the calculation does not works (The CGImage is nil) #2982
+
+### Project
+- Rename the private header `UIColor+HexString` and `NSBezierPath+SDRoundedCorners` with SD prefix, to avoid the conflict when using CocoaPods #2983
+
+## [5.7.1 - 5.7 Patch, on Apr 8th, 2020](https://github.com/SDWebImage/SDWebImage/releases/tag/5.7.1)
+See [all tickets marked for the 5.7.1 release](https://github.com/SDWebImage/SDWebImage/milestone/67)
+
+### Fixes
+- Don't copy attributes from originalImage to transformedImage when caching transformedImage #2976. Thanks @bdaz
+- Fix the wrong value assignment for SDAnimatedImageView code on macOS, warning #2974
+
+## [5.7.0 - Query Cache Type and Encoding Options, on Apr 4th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.7.0)
+See [all tickets marked for the 5.7.0 release](https://github.com/SDWebImage/SDWebImage/milestone/66)
+
+### Features
+
+#### Cache
+- Added the async version API to query disk image data only
+- Added the sync API to query disk image with context and options, which matches the async version
+
+#### Coder
+- Feature supports encoding options like max file size, max pixel size, as well as background color when using JPEG for alpha image #2972
+- You can use `.encodeMaxFileSize` to limit the desired lossy file size, better than compression quality
+- You can use `.encodeMaxPixelSize` to limit the pixel size, like thumbnail encoding
+
+#### Transformer
+- Refactory the current thumbnail && transformer about cache key. Developer should have the API to calculate the cache key from thumbnail or transformer, not hard-coded. #2966
+
+#### Context Option
+- Added new query cache type support, including the SDImageCache API and context option #2968
+- You use `.queryCacheType` to query image from memory/disk/both cache during image pipeline loading
+
+### Fixes
+- Fix the issue for Carthage/SwiftPM framework version symbols, this should match the framework name SDWebImage, or will get a link error when used #2971 #2969
+- Simplify the xattr helper method's code with modern Objective-C syntax #2967. Thanks @huangboju 
+
+### Changes
+- Change the behavior to return the abstract type for unknown image format, this can solve the accident issue for custom coder who provide a new format #2973
+
+## [5.6.1 - 5.6 Patch, on Mar 13th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.6.1)
+See [all tickets marked for the 5.6.1 release](https://github.com/SDWebImage/SDWebImage/milestone/65)
+
+### Performances
+- Keep the progressive decoding process only exist one per image download. Cancel the unused progressive decoding when full pixel data is available. #2483
+
+### Fixes
+- Fix the NotificationCenter does not remove the observer and little private header garden #2959
+
 ## [5.6.0 - URLSession Metrics && Vector Format, on Mar 5th, 2020](https://github.com/rs/SDWebImage/releases/tag/5.6.0)
 See [all tickets marked for the 5.6.0 release](https://github.com/SDWebImage/SDWebImage/milestone/63)
 

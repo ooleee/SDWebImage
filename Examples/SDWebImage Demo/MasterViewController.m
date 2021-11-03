@@ -9,7 +9,6 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import <SDWebImage/SDWebImage.h>
-#import <SDWebImageWebPCoder/SDWebImageWebPCoder.h>
 
 @interface MyCustomTableViewCell : UITableViewCell
 
@@ -51,9 +50,6 @@
                                                                                 style:UIBarButtonItemStylePlain
                                                                                target:self
                                                                                action:@selector(flushCache)];
-        
-        [[SDImageCodersManager sharedManager] addCoder:[SDImageWebPCoder sharedCoder]]; // For WebP static/animated image
-        [[SDImageCodersManager sharedManager] addCoder:[SDImageHEICCoder sharedCoder]]; // For HEIC static/animated image. Animated image is new introduced in iOS 13, but it contains performance issue for now.
         
         // HTTP NTLM auth example
         // Add your NTLM image url to the array below and replace the credentials
@@ -117,7 +113,7 @@
     __weak SDAnimatedImageView *imageView = cell.customImageView;
     [imageView sd_setImageWithURL:[NSURL URLWithString:self.objects[indexPath.row]]
                  placeholderImage:placeholderImage
-                          options:indexPath.row == 0 ? SDWebImageRefreshCached : 0
+                          options:0
                           context:@{SDWebImageContextImageThumbnailPixelSize : @(CGSizeMake(180, 120))}
                          progress:nil
                         completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {

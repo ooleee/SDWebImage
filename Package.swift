@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "SDWebImage",
     platforms: [
-        .macOS(.v10_10),
-        .iOS(.v8),
+        .macOS(.v10_11),
+        .iOS(.v9),
         .tvOS(.v9),
         .watchOS(.v2)
     ],
@@ -32,16 +32,16 @@ let package = Package(
             dependencies: [],
             path: "SDWebImage",
             sources: ["Core", "Private"],
-            publicHeadersPath: "Core",
             cSettings: [
+                .headerSearchPath("Core"),
                 .headerSearchPath("Private")
             ]
         ),
         .target(
             name: "SDWebImageMapKit",
             dependencies: ["SDWebImage"],
-            path: "SDWebImage/MapKit",
-            publicHeadersPath: "."
+            path: "SDWebImageMapKit",
+            sources: ["MapKit"]
         )
     ]
 )
